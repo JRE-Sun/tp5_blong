@@ -16,16 +16,23 @@ class Index extends Controller
         $art_List = \app\common\model\Article::all();
         $this->assign('art_List', $art_List);
         // 热门文章
-        $latest_list = \app\common\model\Article::all(function ($query) {
-            $query->limit(3)->order('art_hits', 'desc');
-        });
+        $latest_list = $this->getArticleByPage(3, 'art_hits');
         $this->assign('latest_list', $latest_list);
         // 获取所有栏目
-
         $cate_list = \app\common\model\Category::all();
         $this->assign('cate_list', $cate_list);
-
         return $this->fetch();
+    }
+
+    /**
+     * 通过页数,加载文章列表
+     */
+    public function getArticleByPage($limit, $file, $page = 1) {
+        $article_model = new \app\common\model\Article();
+        $start         = ($page - 1) * $limit;
+        $end           = $page * $limit;
+        $sql           = "select * from bg_article order by {$file} desc limit {$start},{$end}";
+        return $article_model->query($sql);
     }
 
 }
