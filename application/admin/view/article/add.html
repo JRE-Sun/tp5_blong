@@ -1,0 +1,106 @@
+{include file="comm/header" /}
+<body class="user-select">
+<section class="container-fluid">
+    {include file="comm/header-top" /}
+  <div class="row">
+      {include file="comm/aside" /}
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-lg-10 col-md-offset-2 main" id="main">
+      <div class="row">
+        <form action="{$Think.config.api}admin/article/add" method="post" class="add-article-form">
+          <div class="col-md-9">
+            <h1 class="page-header">撰写新文章</h1>
+            <div class="form-group">
+              <label for="article-title" class="sr-only">标题</label>
+              <input type="text" id="article-title" name="art_title" class="form-control" placeholder="在此处输入标题" required autofocus autocomplete="off">
+            </div>
+            <div class="form-group" style="background:#fff;">
+                <div id="editor">
+                    <p>欢迎使用 <b>wangEditor</b> 富文本编辑器</p>
+                </div>
+                <textarea id="text1" name="art_content" style="display:none;"></textarea>
+            </div>
+            <div class="add-article-box">
+              <h2 class="add-article-box-title"><span>关键字</span></h2>
+              <div class="add-article-box-content">
+              	<input type="text" class="form-control" placeholder="请输入关键字" name="art_keywords" autocomplete="off">
+                <span class="prompt-text">多个标签请用英文逗号,隔开。</span>
+              </div>
+            </div>
+            <div class="add-article-box">
+              <h2 class="add-article-box-title"><span>描述</span></h2>
+              <div class="add-article-box-content">
+              	<textarea class="form-control" name="art_desc" autocomplete="off"></textarea>
+                <span class="prompt-text">描述是可选的手工创建的内容总结，并可以在网页描述中使用</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <h1 class="page-header">操作</h1>
+            <div class="add-article-box">
+              <h2 class="add-article-box-title"><span>栏目</span></h2>
+              <div class="add-article-box-content">
+                <ul class="category-list">
+                    {foreach $cate_list as $value}
+                  <li>
+                    <label>
+                      <input name="cate_id" type="radio" value="{$value['cate_id']}">
+                        {$value['cate_name']} <em class="hidden-md">( 栏目ID: <span>{$value['cate_id']}</span> )</em></label>
+                  </li>
+                  {/foreach}
+                </ul>
+              </div>
+            </div>
+            <div class="add-article-box">
+              <h2 class="add-article-box-title"><span>标签</span></h2>
+              <div class="add-article-box-content">
+                <input type="text" class="form-control" placeholder="输入新标签" name="art_tags" autocomplete="off">
+                <span class="prompt-text">多个标签请用英文逗号,隔开</span> </div>
+            </div>
+            <div class="add-article-box">
+              <h2 class="add-article-box-title"><span>标题图片</span></h2>
+              <div class="add-article-box-content">
+                <input type="text" class="form-control" placeholder="点击按钮选择图片" id="pictureUpload" name="art_thumb" autocomplete="off">
+              </div>
+              <div class="add-article-box-footer">
+                <button class="btn btn-default" type="button" ID="upImage">选择</button>
+              </div>
+            </div>
+              <input type="hidden" name="art_hits" value="0">
+            <div class="add-article-box">
+              <h2 class="add-article-box-title"><span>发布</span></h2>
+              <div class="add-article-box-content">
+              	<p><label>状态：</label><span class="article-status-display">未发布</span></p>
+                <p><label>公开度：</label><input type="radio" name="art_visibility" value="0" checked/>公开 <input type="radio" name="art_visibility" value="1" />加密</p>
+                <p><label>发布于：{$Think.server.REQUEST_TIME | date='y-m-d h:m:s',###}</label><span class="article-time-display"><input style="border: none;display:none;" type="datetime" name="art_addtime" value="{$Think.server.REQUEST_TIME}" /></span></p>
+              </div>
+              <div class="add-article-box-footer">
+                <button class="btn btn-primary" type="submit">发布</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{include file="comm/user-info" /}
+{include file="comm/footer-js" /}
+<script src="{$Think.config.static}admin/lib/wangEditor/wangEditor.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+    var E = window.wangEditor
+    var editor = new E('#editor')
+    var $text1 = $('#text1')
+    editor.customConfig.onchange = function (html) {
+        // 监控变化，同步更新到 textarea
+        $text1.val(html);
+    }
+    editor.create();
+    $text1.val(editor.txt.html());
+    window.onresize=function(){
+        window.location.reload();
+    }
+});
+</script>
+</body>
+</html>
