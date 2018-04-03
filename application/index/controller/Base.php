@@ -34,7 +34,7 @@ class Base extends Controller
         $article_model = new \app\common\model\Article();
         $start         = ($page - 1) * $limit;
         $end           = $page * $limit;
-        $sql           = "select * from bg_article order by {$file} desc limit {$start},{$end}";
+        $sql           = "select * from bg_article left join bg_category on bg_article.cate_id = bg_category.cate_id order by {$file} desc limit {$start},{$end}";
         return $article_model->query($sql);
     }
 }
