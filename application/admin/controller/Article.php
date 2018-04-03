@@ -24,7 +24,7 @@ class Article extends \app\admin\controller\Base
         $this->setAsideName();
         // 读取栏目列表
         // 实例化模型->获取所有栏目
-        $cate_list = \app\admin\model\Category::all();
+        $cate_list = \app\common\model\Category::all();
         $this->assign('cate_list', $cate_list);
         return $this->fetch('add');
     }
