@@ -28,7 +28,7 @@
                             <td><input type="checkbox" class="input-control" name="checkbox[]" value="" /></td>
                             <td class="article-title"><a href="{$Think.config.api}admin/article/update/art_id/{$art['art_id']}">{$art['art_title']}</a></td>
                             <td>{$art['cate_name']}</td>
-                            <td>{$art['art_addtime']|date='y-m-d h:m:s',###}</td>
+                            <td>{$art['art_addtime']|date='y-m-d H:m:s',###}</td>
                             <td>
                                 {if $art['art_visibility']==1}
                                 <a href="{$Think.config.api}admin/article/release/art_id/{$art['art_id']}/visibility/2">已发布</a>

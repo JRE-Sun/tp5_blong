@@ -3,6 +3,7 @@
 namespace app\admin\controller;
 
 use think\captcha\Captcha;
+use think\Config;
 use think\Request;
 use think\Session;
 
@@ -29,7 +30,7 @@ class Admin extends Base
             $this->error('登陆失败!');
             return;
         }
-        $this->success('登陆成功!', '/public/index.php/admin/manage/index/');
+        $this->success('登陆成功!', Config::get('api') . 'admin/manage/index/');
     }
 
     /**
@@ -37,7 +38,7 @@ class Admin extends Base
      */
     public function loginOut() {
         Session::clear();
-        $this->success('注销成功!', '/public/index.php/admin/admin/index/');
+        $this->success('注销成功!', Config::get('api') . 'admin/admin/index/');
     }
 
     public function createCode() {
@@ -80,7 +81,7 @@ class Admin extends Base
         ]);
         if ($admin_info) {
             // 成功,刷新页面
-            $this->success('更新成功!', '/public/index.php/admin/category/index');
+            $this->success('更新成功!', Config::get('api') . 'admin/category/index');
             return;
         }
         $this->error('更新失败!');

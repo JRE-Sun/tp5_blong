@@ -27,7 +27,7 @@
               <tr>
                 <td><input type="checkbox" class="input-control" name="checkbox[]" value="" /></td>
                 <td class="article-title"><a href="{$Think.config.api}admin/single/update/sing_id/{$sing['sing_id']}">{$sing['sing_title']}</a></td>
-                <td>{$sing['sing_addtime']|date='y-m-d h:m:s',###}</td>
+                <td>{$sing['sing_addtime']|date='y-m-d H:m:s',###}</td>
                 <td>
                       {if $sing['sing_visibility']==1}
                       <a href="{$Think.config.api}admin/single/release/sing_id/{$sing['sing_id']}/visibility/2">已发布</a>

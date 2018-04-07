@@ -5,6 +5,7 @@ namespace app\admin\controller;
 use think\Request;
 use think\Controller;
 use think\Session;
+use think\Config;
 
 class Base extends Controller
 {
@@ -43,14 +44,14 @@ class Base extends Controller
         if (in_array($controller, array_keys($c_array)) && in_array($action, $c_array[$controller])) {
             if ($is_land) {
                 // 如果登陆了
-                $this->redirect('http://www.tp.cc/public/index.php/admin/manage/index');
+                $this->redirect(Config::get('api') . 'admin/manage/index');
             }
             return;
         }
         // 如果session没值,说明没登录
         if (!$is_land) {
             // 当没有登陆->直接跳转到登陆页面
-            $this->error('请登录后继续操作!', '/public/index.php/admin/admin/index');
+            $this->error('请登录后继续操作!', Config::get('api') . 'admin/admin/index');
             return;
         }
     }

@@ -16,7 +16,7 @@
                         </div>
                         <div class="form-group" style="background:#fff;">
                             <div id="editor">
-                                <textarea id="text1" name="art_content" style="display:none;">{$art_info['art_content']}</textarea>
+                                <textarea id="text1" required name="art_content" style="display:none;">{$art_info['art_content']}</textarea>
                             </div>
                         </div>
                     </div>
@@ -29,7 +29,7 @@
                                     {foreach $cate_list as $value}
                                     <li>
                                         <label>
-                                            <input name="cate_id" {if $art_info['cate_id'] == $value['cate_id']} checked {/if} type="radio" value="{$value['cate_id']}">
+                                            <input required name="cate_id" {if $art_info['cate_id'] == $value['cate_id']} checked {/if} type="radio" value="{$value['cate_id']}">
                                             {$value['cate_name']} <em class="hidden-md">( 栏目ID: <span>{$value['cate_id']}</span> )</em></label>
                                     </li>
                                     {/foreach}
@@ -43,7 +43,7 @@
                             <div class="add-article-box-content">
                                 <p><label>状态：</label><span class="article-status-display">{$art_info['art_visibility']==1?'已发布':'未发布'}</span></p>
                                 <p><label>公开度：</label><input type="radio" name="art_visibility" value="1" {if $art_info['art_visibility']==1}checked{/if}/>公开 <input type="radio" name="art_visibility" value="2" {if $art_info['art_visibility']==2}checked{/if} />草稿</p>
-                                <p><label>发布于：<input style="border:none;cursor:pointer;" type="text" id="demo_datetime" name="art_addtime" value="{$art_info['art_addtime'] | date='y-m-d h:m:s',###}" /></label></p>
+                                <p><label>发布于：<input style="border:none;cursor:pointer;" type="text" id="demo_datetime" name="art_addtime" value="{$art_info['art_addtime'] | date='y-m-d H:m:s',###}" /></label></p>
                             </div>
                             <div class="add-article-box-footer">
                                 <button class="btn btn-primary" type="submit">更新</button>

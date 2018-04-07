@@ -2,6 +2,7 @@
 
 namespace app\admin\controller;
 
+use think\Config;
 use think\Request;
 
 class Article extends \app\admin\controller\Base
@@ -37,7 +38,7 @@ class Article extends \app\admin\controller\Base
             $this->error('发布文章失败!');
             return;
         }
-        $this->redirect('/public/index.php/admin/article/index', 302);
+        $this->redirect(Config::get('api') . 'admin/article/index', 302);
     }
 
     /**
@@ -67,8 +68,7 @@ class Article extends \app\admin\controller\Base
         $art_info = \app\common\model\Article::where('art_id', $param['art_id'])->update($param);
         if ($art_info) {
             // 成功,刷新页面
-            $this->redirect('/public/index.php/admin/article/index', 302);
-//            $this->success('更新成功!', '/public/index.php/admin/article/index');
+            $this->redirect(Config::get('api') . 'admin/article/index', 302);
             return;
         }
         $this->error('更新失败!');
@@ -113,10 +113,10 @@ class Article extends \app\admin\controller\Base
         $article->is_del = 1;
         $article_info    = $article->save();
         if ($article_info) {
-            $this->redirect('/public/index.php/admin/article/index', 302);
+            $this->redirect(Config::get('api') . 'admin/article/index', 302);
             return;
         }
-        $this->error('删除失败!', '/public/index.php/admin/article/index');
+        $this->error('删除失败!', Config::get('api') . 'admin/article/index');
     }
 
     /**
