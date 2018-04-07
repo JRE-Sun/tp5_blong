@@ -1,30 +1,42 @@
 {include file="comm/header" /}
-<body class="user-select">
-{include file="comm/header-top" /}
-<section class="container">
-  <div class="content-wrap">
-    <div class="content">
-      <div class="title">
-        <h3>后端程序</h3>
-      </div>
-        {foreach $art_list as $art}
-        {include file="comm/article-timeline" /}
-        {/foreach}
-      <nav class="pagination" style="display: none;">
-        <ul>
-          <li class="prev-page"></li>
-          <li class="active"><span>1</span></li>
-          <li><a href="?page=2">2</a></li>
-          <li class="next-page"><a href="?page=2">下一页</a></li>
-          <li><span>共 2 页</span></li>
-        </ul>
-      </nav>
+{php}
+$curr_year = date('Y',time()) +1    ;
+{/php}
+<body>
+<div id="page">
+    {include file="comm/header-top" /}
+    <div id="content">
+        <div id="primary">
+            <section id="archive" class="archive">
+                {foreach $art_list as $key=>$art}
+                {php} $art_year = date('Y',$art['art_addtime']); {/php}
+                {if $art_year!=$curr_year}
+                {php} $curr_year = $art_year; {/php}
+                <div class="collection-title">
+                    {if $key==0}
+                    <h2>{$art['cate_name']}</h2>
+                    {/if}
+                    <h2 class="archive-year">{$art_year}</h2>
+                </div>
+                {/if}
+                <div class="archive-post">
+                    <span class="archive-post-time">{$art['art_addtime']|date='m月d',###}</span>
+                    <span class="archive-post-title">
+                        <a href="{$Think.config.api}index/article/detail/art_id/{$art['art_id']}"
+                           class="archive-post-link">{$art['art_title']}</a>
+                    </span>
+                </div>
+                {/foreach}
+                {if !count($art_list)}
+                <div class="collection-title">
+                    暂无数据!
+                </div>
+                {/if}
+            </section>
+        </div>
     </div>
-  </div>
-    {include file="comm/aside" /}
-</section>
-{include file="comm/footer" /}
-{include file="comm/other" /}
+    {include file="comm/footer" /}
+</div>
 {include file="comm/footer-js" /}
 </body>
 </html>

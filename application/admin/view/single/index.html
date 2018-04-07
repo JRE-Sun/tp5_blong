@@ -1,0 +1,78 @@
+{include file="comm/header" /}
+<body class="user-select">
+<section class="container-fluid">
+    {include file="comm/header-top" /}
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12 main" id="main">
+      <form action="/Article/checkAll" method="post" >
+        <h1 class="page-header">操作</h1>
+        <ol class="breadcrumb">
+          <li><a href="{$Think.config.api}admin/single/addPage">增加单页面</a></li>
+        </ol>
+        <h1 class="page-header">管理 <span class="badge">7</span></h1>
+        {if count($sing_list)}
+        <div class="table-responsive">
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th><span class="glyphicon glyphicon-th-large"></span> <span class="visible-lg">选择</span></th>
+                <th><span class="glyphicon glyphicon-file"></span> <span class="">标题</span></th>
+                <th><span class="glyphicon glyphicon-time"></span> <span class="">日期</span></th>
+                <th><span class="glyphicon glyphicon-time"></span> <span class="">状态</span></th>
+                <th><span class="glyphicon glyphicon-pencil"></span> <span class="">操作</span></th>
+              </tr>
+            </thead>
+            <tbody>
+            {foreach $sing_list as $sing}
+              <tr>
+                <td><input type="checkbox" class="input-control" name="checkbox[]" value="" /></td>
+                <td class="article-title"><a href="{$Think.config.api}admin/single/update/sing_id/{$sing['sing_id']}">{$sing['sing_title']}</a></td>
+                <td>{$sing['sing_addtime']|date='y-m-d h:m:s',###}</td>
+                <td>
+                      {if $sing['sing_visibility']==1}
+                      <a href="{$Think.config.api}admin/single/release/sing_id/{$sing['sing_id']}/visibility/2">已发布</a>
+                      {else}
+                      <a class="btn-danger" href="{$Think.config.api}admin/single/release/sing_id/{$sing['sing_id']}/visibility/1">未发布</a>
+                      {/if}
+                </td>
+                <td><a href="{$Think.config.api}admin/single/update/sing_id/{$sing['sing_id']}">修改</a> <a href="{$Think.config.api}admin/single/delete/sing_id/{$sing['sing_id']}">删除</a></td>
+              </tr>
+            {/foreach}
+            </tbody>
+          </table>
+        </div>
+        {else}
+        暂无单页面!
+        {/if}
+        <footer class="message_footer">
+          <nav>
+            <div class="btn-toolbar operation" role="toolbar">
+              <div class="btn-group" role="group"> <a class="btn btn-default" onClick="select()">全选</a> <a class="btn btn-default" onClick="reverse()">反选</a> <a class="btn btn-default" onClick="noselect()">不选</a> </div>
+              <div class="btn-group" role="group">
+                <button type="submit" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="删除全部选中" name="checkbox_delete">删除</button>
+              </div>
+            </div>
+          </nav>
+        </footer>
+      </form>
+    </div>
+  </div>
+</section>
+{include file="comm/user-info" /}
+{include file="comm/footer-js" /}
+<script>
+    //是否确认删除
+    $(function(){
+        $("#main table tbody tr td a").click(function(e){
+            if (event.srcElement.outerText === "删除") {
+                if(!window.confirm("此操作不可逆，是否确认？")) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    return false;
+                };
+            };
+        });
+    });
+</script>
+</body>
+</html>

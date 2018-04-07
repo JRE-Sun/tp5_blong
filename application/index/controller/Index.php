@@ -12,11 +12,9 @@ class Index extends Base
      * @return mixed
      */
     public function index() {
-        // 查询最新发布的文章,取5个
-        // 热门文章
-        $art_List = $this->getArticleByPage(5, 'art_addtime');
-        $this->assign('art_List', $art_List);
-        $this->initAside();
+        // 查询最新发布的文章,取10个
+        $art_list = $this->getArticleByPage(1000, 'art_addtime');
+        $this->assign('art_list', $art_list);
         return $this->fetch();
     }
 

@@ -1,0 +1,19 @@
+{include file="comm/header" /}
+<link rel="stylesheet" href="{$Think.config.static}admin/lib/editor/css/editormd.preview.css" />
+<body style="">
+<div id="page">
+    {include file="comm/header-top" /}
+    <div id="content">
+        <div id="primary">
+            <article class="post">
+                <div id="editor" class="post-content">
+                    <textarea style="display:none;" name="test-editormd-markdown-doc">{$sing_info['sing_content']}</textarea>
+                </div>
+            </article>
+        </div>
+    </div>
+    {include file="comm/footer" /}
+</div>
+{include file="comm/footer-js" /}
+</body>
+</html>

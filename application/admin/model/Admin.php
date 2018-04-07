@@ -27,6 +27,11 @@ class Admin extends Model
         }
         // 查询成功
         Session::set('admin_info', $admin_info);
+        // 更新ip,登录次数,登录时间
+        $admin_info->login_ip   = $_SERVER['REMOTE_ADDR'];
+        $admin_info->login_nums = $admin_info->login_nums + 1;
+        $admin_info->login_time = time();
+        $admin_info->save();
         return true;
     }
 }

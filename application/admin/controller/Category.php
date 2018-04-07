@@ -31,7 +31,7 @@ class Category extends \app\admin\controller\Base
             return;
         }
         // 插入数据库
-        $cate_model    = new \app\admin\model\Category();
+        $cate_model    = new \app\common\model\Category();
         $insert_result = $cate_model->insertDb($param);
         // 失败,弹出错误信息,刷新页面
         if (!$insert_result) {
@@ -65,7 +65,7 @@ class Category extends \app\admin\controller\Base
         $category_info = \app\common\model\Category::where('cate_id', $param['cate_id'])->update($param);
         if ($category_info) {
             // 成功,刷新页面
-            $this->success('更新成功!', '/public/index.php/admin/category/index');
+            $this->redirect('/public/index.php/admin/category/index', 302);
             return;
         }
         $this->error('更新失败!', '/public/index.php/admin/category/index');
@@ -79,7 +79,7 @@ class Category extends \app\admin\controller\Base
         $category      = \app\common\model\Category::get($param['cate_id']);
         $category_info = $category->delete();
         if ($category_info) {
-            $this->success('删除成功!', '/public/index.php/admin/category/index');
+            $this->redirect('/public/index.php/admin/category/index', 302);
             return;
         }
         $this->error('删除失败!', '/public/index.php/admin/category/index');

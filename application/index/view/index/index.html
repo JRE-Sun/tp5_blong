@@ -1,57 +1,34 @@
 {include file="comm/header" /}
-<body class="user-select">
-{include file="comm/header-top" /}
-<section class="container">
-  <div class="content-wrap">
-    <div class="content">
-      <div class="jumbotron">
-        <h1>欢迎访问异清轩博客</h1>
-        <p>在这里可以看到前端技术，后端程序，网站内容管理系统等文章，还有我的程序人生！</p>
-      </div>
-      <div id="focusslide" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-          <li data-target="#focusslide" data-slide-to="0" class="active"></li>
-          <li data-target="#focusslide" data-slide-to="1"></li>
-          <li data-target="#focusslide" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner" role="listbox">
-          <div class="item active"> <a href="" target="_blank"><img src="{$Think.config.static}/index/images/banner/banner_01.jpg" alt="" class="img-responsive"></a>
-            <!--<div class="carousel-caption"> </div>-->
-          </div>
-          <div class="item"> <a href="" target="_blank"><img src="{$Think.config.static}/index/images/banner/banner_02.jpg" alt="" class="img-responsive"></a>
-            <!--<div class="carousel-caption"> </div>-->
-          </div>
-          <div class="item"> <a href="" target="_blank"><img src="{$Think.config.static}/index/images/banner/banner_03.jpg" alt="" class="img-responsive"></a>
-            <!--<div class="carousel-caption"> </div>-->
-          </div>
+{php}
+$curr_year = date('Y',time()) +1    ;
+{/php}
+<body>
+<div id="page">
+    {include file="comm/header-top" /}
+    <div id="content">
+        <div id="primary">
+            <section id="archive" class="archive">
+                {foreach $art_list as $art}
+                {php} $art_year = date('Y',$art['art_addtime']); {/php}
+                {if $art_year!=$curr_year}
+                {php} $curr_year = $art_year; {/php}
+                <div class="collection-title">
+                    <h2 class="archive-year">{$art_year}</h2>
+                </div>
+                {/if}
+                <div class="archive-post">
+                    <span class="archive-post-time">{$art['art_addtime']|date='m月d',###}</span>
+                    <span class="archive-post-title">
+                        <a href="{$Think.config.api}index/article/detail/art_id/{$art['art_id']}"
+                           class="archive-post-link">{$art['art_title']}</a>
+                    </span>
+                </div>
+                {/foreach}
+            </section>
         </div>
-        <a class="left carousel-control" href="#focusslide" role="button" data-slide="prev" rel="nofollow"> <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> <span class="sr-only">上一个</span> </a> <a class="right carousel-control" href="#focusslide" role="button" data-slide="next" rel="nofollow"> <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> <span class="sr-only">下一个</span> </a> </div>
-      <article class="excerpt-minic excerpt-minic-index">
-        <h2><span class="red">【今日推荐】</span><a href="" title="">从下载看我们该如何做事</a></h2>
-        <p class="note">一次我下载几部电影，发现如果同时下载多部要等上几个小时，然后我把最想看的做个先后排序，去设置同时只能下载一部，结果是不到一杯茶功夫我就能看到最想看的电影。 这就像我们一段时间内想干成很多事情，是同时干还是有选择有顺序的干，结果很不一样。同时...</p>
-      </article>
-      <div class="title">
-        <h3>最新发布</h3>
-        <div class="more"><a href="">PHP</a><a href="">JavaScript</a><a href="">EmpireCMS</a><a href="">Apache</a><a href="">MySQL</a></div>
-      </div>
-      {foreach $art_List as $art}
-        {include file="comm/article-timeline" /}
-      {/foreach}
-      <nav class="pagination" style="display: none;">
-        <ul>
-          <li class="prev-page"></li>
-          <li class="active"><span>1</span></li>
-          <li><a href="?page=2">2</a></li>
-          <li class="next-page"><a href="?page=2">下一页</a></li>
-          <li><span>共 2 页</span></li>
-        </ul>
-      </nav>
     </div>
-  </div>
-    {include file="comm/aside" /}
-</section>
-{include file="comm/footer" /}
-{include file="comm/other" /}
+    {include file="comm/footer" /}
+</div>
 {include file="comm/footer-js" /}
 </body>
 </html>

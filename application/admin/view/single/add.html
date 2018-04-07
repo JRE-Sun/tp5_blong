@@ -1,0 +1,71 @@
+{include file="comm/header" /}
+<link rel="stylesheet" type="text/css" href="{$Think.config.static}admin/css/mobiscroll.custom.min.css">
+<link rel="stylesheet" type="text/css" href="{$Think.config.static}admin/lib/editor/css/editormd.css">
+<body class="user-select">
+<section class="container-fluid">
+    {include file="comm/header-top" /}
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12 main" id="main">
+      <div class="row">
+        <form action="{$Think.config.api}admin/single/add" method="post" class="add-article-form">
+            <div class="col-md-12">
+            <h1 class="page-header">撰写新单页面</h1>
+                <div class="form-group">
+                    <label for="article-title" class="sr-only">标题</label>
+                    <input type="text" id="article-title" name="sing_title" class="form-control" placeholder="在此处输入标题" required autofocus autocomplete="off">
+                </div>
+            <div class="form-group" style="background:#fff;">
+                <div id="editor">
+                    <textarea id="text1" name="sing_content" style="display:none;"></textarea>
+                </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <h1 class="page-header">操作</h1>
+            <div class="add-article-box">
+              <h2 class="add-article-box-title"><span>发布</span></h2>
+              <div class="add-article-box-content">
+              	<p><label>状态：</label><span class="article-status-display">未发布</span></p>
+                <p><label>公开度：</label><input type="radio" name="sing_visibility" value="1" checked/>公开 <input type="radio" name="sing_visibility" value="2" />草稿</p>
+                <p><label>发布于：<input style="border:none;cursor:pointer;" type="text" id="demo_datetime" name="sing_addtime" value="{$Think.server.REQUEST_TIME | date='y-m-d h:m:s',###}" /></label></p>
+              </div>
+              <div class="add-article-box-footer">
+                <button class="btn btn-primary" type="submit">发布</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{include file="comm/user-info" /}
+{include file="comm/footer-js" /}
+<script src="{$Think.config.static}admin/lib/editor/editormd.min.js"></script>
+<script src="{$Think.config.static}admin/js/mobiscroll.custom.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+    var editor = editormd("editor", {
+            width   : "100%",
+            height  : 640,
+            syncScrolling : "single",
+            path    : "{$Think.config.static}admin/lib/editor/lib/"
+        });
+    var theme = "ios";
+    var mode = "scroller";
+    var display = "bottom";
+    var lang="zh";
+    $('#demo_datetime').mobiscroll().datetime({
+        theme: theme,
+        mode: mode,
+        display: display,
+        lang: lang,
+        // dateFormat:"yyyy-mm-dd",
+        minDate: new Date(2000,3,10,9,22),
+        maxDate: new Date(2030,7,30,15,44),
+        stepMinute: 1
+    });
+});
+</script>
+</body>
+</html>
