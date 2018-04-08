@@ -60,7 +60,7 @@ class Admin extends Base
             $has_empty = $this->getNotEmptyParam($value);
         }
         // 当有空参数 或 两次新密码不一致
-        if (!$has_empty || $param['admin_pass'] != $param['admin_new_pass']) {
+        if (!$has_empty || $param['admin_pass'] != $param['admin_new_pass'] || empty($param['admin_pass'])) {
             $this->error('更新失败!');
             return;
         }

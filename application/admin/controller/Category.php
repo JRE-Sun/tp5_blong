@@ -2,6 +2,7 @@
 
 namespace app\admin\controller;
 
+use think\Config;
 use think\Request;
 
 class Category extends \app\admin\controller\Base
@@ -27,7 +28,7 @@ class Category extends \app\admin\controller\Base
         // 检查数据正确性
         if (!$this->getNotEmptyParam($param['cate_name'])) {
             // 如果类别名称为空
-            $this->error('栏目名称填写错误!', '/public/index.php/admin/category/index');
+            $this->error('栏目名称填写错误!', Config::get('api') . 'admin/category/index');
             return;
         }
         // 插入数据库
@@ -35,11 +36,11 @@ class Category extends \app\admin\controller\Base
         $insert_result = $cate_model->insertDb($param);
         // 失败,弹出错误信息,刷新页面
         if (!$insert_result) {
-            $this->error('未知错误!', '/public/index.php/admin/category/index');
+            $this->error('未知错误!', Config::get('api') . 'admin/category/index');
             return;
         }
         // 成功,刷新页面
-        $this->success('添加成功!', '/public/index.php/admin/category/index');
+        $this->redirect(Config::get('api') . 'admin/category/index', 302);
     }
 
     public function update() {
@@ -65,10 +66,10 @@ class Category extends \app\admin\controller\Base
         $category_info = \app\common\model\Category::where('cate_id', $param['cate_id'])->update($param);
         if ($category_info) {
             // 成功,刷新页面
-            $this->redirect('/public/index.php/admin/category/index', 302);
+            $this->redirect(Config::get('api') . 'admin/category/index', 302);
             return;
         }
-        $this->error('更新失败!', '/public/index.php/admin/category/index');
+        $this->error('更新失败!', Config::get('api') . 'admin/category/index');
     }
 
     public function delete() {
@@ -79,10 +80,10 @@ class Category extends \app\admin\controller\Base
         $category      = \app\common\model\Category::get($param['cate_id']);
         $category_info = $category->delete();
         if ($category_info) {
-            $this->redirect('/public/index.php/admin/category/index', 302);
+            $this->redirect(Config::get('api') . 'admin/category/index', 302);
             return;
         }
-        $this->error('删除失败!', '/public/index.php/admin/category/index');
+        $this->error('删除失败!', Config::get('api') . 'admin/category/index');
     }
 }
 

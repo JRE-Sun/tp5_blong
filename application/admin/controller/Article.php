@@ -92,9 +92,7 @@ class Article extends \app\admin\controller\Base
         $request = Request::instance();
         // 获取所有参数
         $srarch_value = $request->param()['srarch_value'];
-        $sql          = "SELECT * FROM bg_article left join bg_category on bg_article.cate_id=bg_category.cate_id WHERE art_title like '%{$srarch_value}%' or art_content like '%{$srarch_value}%' order by art_addtime desc";
-        $art_model    = new \app\common\model\Article;
-        $art_list     = $art_model->query($sql);
+        $art_list     = $this->initPage(10, '', "art_title like '%{$srarch_value}%' or art_content like '%{$srarch_value}%'");
         $this->assign('art_list', $art_list);
         return $this->fetch('list');
     }
