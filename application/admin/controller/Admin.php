@@ -1,12 +1,9 @@
 <?php
-
 namespace app\admin\controller;
-
 use think\captcha\Captcha;
 use think\Config;
 use think\Request;
 use think\Session;
-
 class Admin extends Base
 {
     /**
@@ -17,7 +14,6 @@ class Admin extends Base
     public function index() {
         return $this->fetch('login');
     }
-
     /**
      * 接收登陆请求
      *
@@ -32,7 +28,6 @@ class Admin extends Base
         }
         $this->success('登陆成功!', Config::get('api') . 'admin/manage/index/');
     }
-
     /**
      * 注销登陆
      */
@@ -40,12 +35,10 @@ class Admin extends Base
         Session::clear();
         $this->success('注销成功!', Config::get('api') . 'admin/admin/index/');
     }
-
     public function createCode() {
         $captcha = new Captcha();
         return $captcha->entry();
     }
-
     /**
      * 更新网站管理员信息
      */
@@ -64,16 +57,13 @@ class Admin extends Base
             $this->error('更新失败!');
             return;
         }
-
         // 查询旧密码
         $admin_info     = \app\admin\model\Admin::get($param['admin_id']);
         $admin_old_pass = $admin_info->admin_pass;
-
         if ($admin_old_pass != $param['admin_old_pass']) {
             $this->error('密码输入错误!');
             return;
         }
-
         // 更新admin
         $admin_info = \app\admin\model\Admin::where('admin_id', $param['admin_id'])->update([
             'admin_name' => $param['admin_name'],
@@ -86,5 +76,4 @@ class Admin extends Base
         }
         $this->error('更新失败!');
     }
-
 }

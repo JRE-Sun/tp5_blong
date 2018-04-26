@@ -53,19 +53,5 @@
 </section>
 {include file="comm/user-info" /}
 {include file="comm/footer-js" /}
-<script>
-//是否确认删除
-$(function(){
-	$("#main table tbody tr td a").click(function(e){
-        if (event.srcElement.outerText === "删除") {
-			if(!window.confirm("此操作不可逆，是否确认？")) {
-			    e.stopPropagation();
-			    e.preventDefault();
-				return false;
-			};
-		};
-	});
-});
-</script>
 </body>
 </html>

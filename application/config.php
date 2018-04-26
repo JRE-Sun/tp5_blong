@@ -236,6 +236,10 @@ return [
         'var_page'  => 'page',
         'list_rows' => 15,
     ],
+    // 线上
+    //    'static'   => '/blog/static/',
+    //    'api'      => '/blog/index.php/',
+    // 线下
     'static'   => '/static/',
-    'api'      => '/public/index.php/',
+    'api'      => '/',
 ];

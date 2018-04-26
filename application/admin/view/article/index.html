@@ -8,6 +8,7 @@
         <h1 class="page-header">操作</h1>
         <ol class="breadcrumb">
           <li><a href="{$Think.config.api}admin/article/addPage">增加文章</a></li>
+          <li><a href="{$Think.config.api}admin/article/recoveryPage">回收站</a></li>
         </ol>
         <h1 class="page-header">管理 <span class="badge">7</span></h1>
         <div class="table-responsive">
@@ -25,7 +26,7 @@
             <tbody>
             {foreach $art_list as $art}
               <tr>
-                <td><input type="checkbox" class="input-control" name="checkbox[]" value="" /></td>
+                <td><input type="checkbox" class="input-control" name="checkbox[]" value="{$art['art_id']}" /></td>
                 <td class="article-title"><a href="{$Think.config.api}admin/article/update/art_id/{$art['art_id']}">{$art['art_title']}</a></td>
                 <td><a href="{$Think.config.api}admin/article/listPage/cate_id/{$art['cate_id']}">{$art['cate_name']}</a></td>
                 <td>{$art['art_addtime']|date='y-m-d H:m:s',###}</td>
@@ -45,9 +46,13 @@
         <footer class="message_footer">
           <nav>
             <div class="btn-toolbar operation" role="toolbar">
-              <div class="btn-group" role="group"> <a class="btn btn-default" onClick="select()">全选</a> <a class="btn btn-default" onClick="reverse()">反选</a> <a class="btn btn-default" onClick="noselect()">不选</a> </div>
+              <div class="btn-group btn-event" role="group">
+                <a class="btn btn-default">全选</a>
+                <a class="btn btn-default">反选</a>
+                <a class="btn btn-default">不选</a>
+              </div>
               <div class="btn-group" role="group">
-                <button type="submit" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="删除全部选中" name="checkbox_delete">删除</button>
+                <a data-api="{$Think.config.api}admin/article/delete/" data-type="art_id" class="btn btn-default delete-btn">删除</a>
               </div>
             </div>
             {$page_html}
@@ -59,19 +64,5 @@
 </section>
 {include file="comm/user-info" /}
 {include file="comm/footer-js" /}
-<script>
-    //是否确认删除
-    $(function(){
-        $("#main table tbody tr td a").click(function(e){
-            if (event.srcElement.outerText === "删除") {
-                if(!window.confirm("此操作不可逆，是否确认？")) {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    return false;
-                };
-            };
-        });
-    });
-</script>
 </body>
 </html>

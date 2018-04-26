@@ -9,9 +9,12 @@ use think\Config;
 
 class Base extends Controller
 {
+    public $data = [];
 
     public function __construct() {
         Parent::__construct();
+        // error 1代表失败,0代表成功
+        $this->data['error'] = 1;
         $this->checkLogin();
     }
 
@@ -59,7 +62,7 @@ class Base extends Controller
     /**
      * 初始化分页
      */
-    public function initPage($every_page_nums, $cate_id = "", $like = "") {
+    public function initPage($every_page_nums, $cate_id = "", $like = "", $is_del = 0) {
         if (empty($cate_id)) {
             // 如果第二个参数为空
             $count_cate_id  = '';
@@ -75,7 +78,7 @@ class Base extends Controller
         // 获取当前页数,,默认1
         $page_index = (count($request->param()) == 0 || !in_array('page_index', array_keys($request->param()))) ? 1 : $request->param()['page_index'];
         $art_model  = new \app\common\model\Article;
-        $sql        = "select count(*) from bg_article where bg_article.is_del='0' {$count_cate_id} {$like}";
+        $sql        = "select count(*) from bg_article where bg_article.is_del='" . $is_del . "' {$count_cate_id} {$like}";
         // 文章总数
         $art_total = $art_model->query($sql)[0]['count(*)'];
         // 每页多少篇文章 $every_page_nums
@@ -84,7 +87,7 @@ class Base extends Controller
         $page      = new \page\Page($page_index, $art_total, $every_page_nums, $request->url());
         $page_html = $page->create_page();
         $this->assign('page_html', $page_html);
-        $sql      = "select * from bg_article, bg_category where bg_article.is_del='0' and bg_category.cate_id=bg_article.cate_id {$select_cate_id} {$like} order by art_addtime desc limit {$start_rows},{$every_page_nums}";
+        $sql      = "select * from bg_article, bg_category where bg_article.is_del='" . $is_del . "' and bg_category.cate_id=bg_article.cate_id {$select_cate_id} {$like} order by art_addtime desc limit {$start_rows},{$every_page_nums}";
         $art_list = $art_model->query($sql);
         return $art_list;
     }

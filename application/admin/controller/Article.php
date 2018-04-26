@@ -10,7 +10,7 @@ class Article extends \app\admin\controller\Base
     public function index() {
         $this->setAsideName();
         // 初始化分页
-        $art_list = $this->initPage(10);
+        $art_list = $this->initPage(20);
         $this->assign('art_list', $art_list);
         return $this->fetch();
     }
@@ -82,7 +82,7 @@ class Article extends \app\admin\controller\Base
         $request = Request::instance();
         // 获取所有参数
         $param    = $request->param();
-        $art_list = $this->initPage(10, $param['cate_id']);
+        $art_list = $this->initPage(20, $param['cate_id']);
         $this->assign('art_list', $art_list);
         return $this->fetch('list');
     }
@@ -92,7 +92,7 @@ class Article extends \app\admin\controller\Base
         $request = Request::instance();
         // 获取所有参数
         $srarch_value = $request->param()['srarch_value'];
-        $art_list     = $this->initPage(10, '', "art_title like '%{$srarch_value}%' or art_content like '%{$srarch_value}%'");
+        $art_list     = $this->initPage(20, '', "art_title like '%{$srarch_value}%' or art_content like '%{$srarch_value}%'");
         $this->assign('art_list', $art_list);
         return $this->fetch('list');
     }
@@ -105,16 +105,44 @@ class Article extends \app\admin\controller\Base
     public function delete() {
         $request = Request::instance();
         // 获取所有参数
-        $param = $request->param();
-        // 实例化模型->删除栏目
-        $article         = \app\common\model\Article::get($param['art_id']);
-        $article->is_del = 1;
-        $article_info    = $article->save();
-        if ($article_info) {
+        $param          = $request->param();
+        $delete_resault = [];
+        // 删除是通过ajax
+        if (!isset($param['art_id'])) {
+            foreach ($param['checkedIndex'] as $value) {
+                array_push($delete_resault, $this->deleteArticle($value));
+            }
+            $this->data['error'] = 1;
+            if (in_array(false, $delete_resault)) {
+                $this->data['status'] = false;
+            } else {
+                $this->data['status'] = true;
+            }
+            return json_encode($this->data);
+        }
+        // 直接通过a链接删除
+        $delete_resault = $this->deleteArticle($param['art_id']);
+        if ($delete_resault) {
             $this->redirect(Config::get('api') . 'admin/article/index', 302);
             return;
         }
         $this->error('删除失败!', Config::get('api') . 'admin/article/index');
+    }
+
+    public function deleteArticle($art_id) {
+        // 实例化模型->删除栏目
+        $article         = \app\common\model\Article::get($art_id);
+        $article->is_del = 1;
+        $article_info    = $article->save();
+        return $article_info;
+    }
+
+    public function recoveryArticle($art_id) {
+        // 实例化模型->删除栏目
+        $article         = \app\common\model\Article::get($art_id);
+        $article->is_del = 0;
+        $article_info    = $article->save();
+        return $article_info;
     }
 
     /**
@@ -135,6 +163,38 @@ class Article extends \app\admin\controller\Base
             return;
         }
         $this->error('更新失败!');
+    }
+
+    /**
+     * 回收站页面
+     */
+    public function recoveryPage() {
+        $this->setAsideName();
+        // 初始化分页
+        $art_list = $this->initPage(20, '', '', 1);
+        $this->assign('art_list', $art_list);
+        return $this->fetch('recovery');
+    }
+
+    /**
+     * 恢复文章
+     */
+    public function recovery() {
+        $request = Request::instance();
+        // 获取所有参数
+        $param            = $request->param();
+        $recovery_resault = [];
+        foreach ($param['checkedIndex'] as $value) {
+            array_push($recovery_resault, $this->recoveryArticle($value));
+        }
+        $this->data['error'] = 1;
+        if (in_array(false, $recovery_resault)) {
+            $this->data['status'] = false;
+        } else {
+            $this->data['status'] = true;
+        }
+        return json_encode($this->data);
+
     }
 }
 

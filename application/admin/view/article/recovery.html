@@ -26,9 +26,9 @@
                         <tbody>
                         {foreach $art_list as $art}
                         <tr>
-                            <td><input type="checkbox" class="input-control" name="checkbox[]" value="" /></td>
+                            <td><input type="checkbox" class="input-control" name="checkbox[]" value="{$art['art_id']}" /></td>
                             <td class="article-title"><a href="{$Think.config.api}admin/article/update/art_id/{$art['art_id']}">{$art['art_title']}</a></td>
-                            <td>{$art['cate_name']}</td>
+                            <td><a href="{$Think.config.api}admin/article/listPage/cate_id/{$art['cate_id']}">{$art['cate_name']}</a></td>
                             <td>{$art['art_addtime']|date='y-m-d H:m:s',###}</td>
                             <td>
                                 {if $art['art_visibility']==1}
@@ -53,6 +53,7 @@
                             </div>
                             <div class="btn-group" role="group">
                                 <a data-api="{$Think.config.api}admin/article/delete/" data-type="art_id" class="btn btn-default delete-btn">删除</a>
+                                <a data-api="{$Think.config.api}admin/article/recovery/" data-type="art_id" class="btn btn-default recovery-btn">还原</a>
                             </div>
                         </div>
                         {$page_html}
