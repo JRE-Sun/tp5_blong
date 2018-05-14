@@ -5,7 +5,7 @@
  *    user zoom.
  */
 html {
-    font-family: sans-serif;
+    font-family: "Microsoft YaHei", "Open Sans", sans-serif;
     /* 1 */
     -ms-text-size-adjust: 100%;
     /* 2 */
@@ -408,7 +408,7 @@ p {
 }
 
 html {
-    font-size: 15px;
+    font-size: 16px;
     box-sizing: border-box;
 }
 
@@ -585,13 +585,17 @@ h6 {
 }
 
 #nav-top .nav-top-items .menu-item {
-    font-size: 15px;
     margin-left: 30px;
     display: inline-block;
 }
 
 #nav-top .nav-top-items .menu-item a {
     color: rgba(0, 0, 0, 0.6);
+}
+
+.editormd-preview-container, .editormd-html-preview {
+    font-size: inherit !important;
+    line-height: 1.8 !important;
 }
 
 .posts {
@@ -754,7 +758,7 @@ h6 {
 
 .post .post-content code, .post .post-content pre {
     padding: 7px;
-    font-size: 13px;
+    font-size: 14px;
     font-family: "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", sans-serif;
     background: #F8F8F8;
 }
@@ -962,6 +966,7 @@ h6 {
 
 .post .post-footer .post-nav {
     /*margin: 1em 0;*/
+    line-height: 1.8;
 }
 
 .post .post-footer .post-nav:before, .post .post-footer .post-nav:after {
@@ -1452,7 +1457,7 @@ pre {
     background-color: #FFF;
     border-top: none;
     border-bottom: none;
-    font-family: Arial, 'Courier New', "Helvetica Neue", Helvetica, sans-serif;
+    font-family: "Microsoft YaHei", "Open Sans", sans-serif;
     overflow: visible;
 }
 
@@ -1462,7 +1467,7 @@ pre {
     border-bottom: 1px solid #DDD;
     line-height: 40px;
     background-color: #F4F5F9;
-    font-family: 'Courier New', "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Microsoft YaHei", "Open Sans", sans-serif;
     text-align: center;
     overflow: hidden;
 }
@@ -1493,7 +1498,7 @@ pre {
     line-height: 30px;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 14px;
+    font-size: 16px;
     overflow: hidden;
 }
 
@@ -1509,6 +1514,7 @@ pre {
 }
 
 .autocjs-code {
+    font-style: normal;
     padding-right: 5px;
 }
 
