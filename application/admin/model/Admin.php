@@ -16,11 +16,7 @@ class Admin extends Model
      * @throws \think\exception\DbException
      */
     public function login($parm) {
-//        $captcha = new Captcha();
-//        if (!$captcha->check($parm['admin_code'])) {
-//            return false;
-//        }
-        $admin_info = Admin::get(['admin_name' => $parm['admin_name'], 'admin_pass' => $parm['admin_pass']]);
+        $admin_info = Admin::get(['admin_name' => $parm['admin_name'], 'admin_pass' => md5($parm['admin_pass'])]);
         // 如果查询用户失败
         if (!$admin_info) {
             return false;

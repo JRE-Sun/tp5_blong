@@ -60,28 +60,8 @@
 <script src="{$Think.config.static}admin/lib/editor/editormd.min.js"></script>
 <script src="{$Think.config.static}admin/js/mobiscroll.custom.min.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        var editor = editormd("editor", {
-            width   : "100%",
-            height  : 640,
-            syncScrolling : "single",
-            path    : "{$Think.config.static}admin/lib/editor/lib/"
-        });
-        var theme = "ios";
-        var mode = "scroller";
-        var display = "bottom";
-        var lang="zh";
-        $('#demo_datetime').mobiscroll().datetime({
-            theme: theme,
-            mode: mode,
-            display: display,
-            lang: lang,
-            // dateFormat:"yyyy-mm-dd",
-            minDate: new Date(2000,3,10,9,22),
-            maxDate: new Date(2030,7,30,15,44),
-            stepMinute: 1
-        });
-    });
+    window.path = "{$Think.config.static}admin/lib/editor/lib/";
 </script>
+<script src="{$Think.config.static}admin/js/article.js"></script>
 </body>
 </html>
