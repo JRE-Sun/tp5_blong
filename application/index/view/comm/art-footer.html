@@ -2,20 +2,14 @@
     <div class="post-tags">
         <a href="{$Think.config.api}index/article/listPage/cate_id/{$art_info.cate_id}">{$art_info['cate_name']}</a>
     </div>
-    {if $pre_info || $next_info}
+    {if $recommend_list}
     <nav class="post-nav">
-        {if $pre_info}
-        <a class="prev" href="{$Think.config.api}index/article/detail/art_id/{$pre_info.art_id}">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">{$pre_info['art_title']}</span>
+        <p style="-webkit-margin-before:0;-webkit-margin-after:0;padding-bottom: .5em;color:#4D89FB;">相关推荐:</p>
+        {foreach $recommend_list as $key=>$recommend}
+        <a class="next" href="{$Think.config.api}index/article/detail/art_id/{$recommend.art_id}">
+            <span class="next-text nav-default">{$recommend['art_title']}</span>
         </a>
-        {/if}
-        {if $next_info}
-        <a class="next" href="{$Think.config.api}index/article/detail/art_id/{$next_info.art_id}">
-            <span class="next-text nav-default">{$next_info['art_title']}</span>
-            <i class="iconfont icon-right"></i>
-        </a>
-        {/if}
+        {/foreach}
     </nav>
     {/if}
 </footer>

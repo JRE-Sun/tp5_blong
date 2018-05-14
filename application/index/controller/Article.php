@@ -18,18 +18,12 @@ class Article extends Base
             return;
         }
         $art_info = $art_info[0];
+
         $this->assign('art_info', $art_info);
-        // 根据当前文章分类,获取该分类下的上一篇,下一篇文章
-        // 上一篇::id小于当前id的
-        $sql      = "select * from bg_article left join bg_category on bg_article.cate_id = bg_category.cate_id  where bg_category.cate_id={$art_info['cate_id']} and bg_article.art_id<{$art_info['art_id']}";
-        $pre_info = $art_model->query($sql);
-        $pre_info = count($pre_info) != 0 ? $pre_info[0] : $pre_info;
-        $this->assign('pre_info', $pre_info);
-        // 下一篇::id大于当前id的
-        $sql       = "select * from bg_article left join bg_category on bg_article.cate_id = bg_category.cate_id  where bg_category.cate_id={$art_info['cate_id']} and bg_article.art_id>{$art_info['art_id']}";
-        $next_info = $art_model->query($sql);
-        $next_info = count($next_info) != 0 ? $next_info[0] : $next_info;
-        $this->assign('next_info', $next_info);
+        // 根据当前文章分类,获取该分类下的随机十篇文章
+        $sql      = "select * from bg_article left join bg_category on bg_article.cate_id = bg_category.cate_id  where bg_category.cate_id={$art_info['cate_id']} order by rand() limit 5";
+        $recommend_list = $art_model->query($sql);
+        $this->assign('recommend_list', $recommend_list);
         return $this->fetch();
     }
 

@@ -961,7 +961,7 @@ h6 {
 }
 
 .post .post-footer .post-nav {
-    margin: 1em 0;
+    /*margin: 1em 0;*/
 }
 
 .post .post-footer .post-nav:before, .post .post-footer .post-nav:after {
@@ -994,7 +994,14 @@ h6 {
 }
 
 .post .post-footer .post-nav .next {
-    float: right;
+    /*float: right;*/
+    display: block;
+}
+
+pre {
+    white-space: pre !important;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
 }
 
 .post .post-footer .post-nav .next:hover {

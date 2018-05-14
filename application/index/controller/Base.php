@@ -40,7 +40,7 @@ class Base extends Controller
 
     public function getAllCate() {
         $cate_model = new \app\common\model\Category;
-        $sql        = "select * from bg_category where cate_id!=40";
+        $sql        = "select * from bg_category";
         $cate_list  = $cate_model->query($sql);
         $this->assign('cate_list', $cate_list);
     }

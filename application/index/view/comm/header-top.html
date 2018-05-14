@@ -11,11 +11,20 @@
                     </a>
                 </li>
                 {foreach $cate_list as $cate}
-                <li class="menu-item">
-                    <a href="{$Think.config.api}index/article/listPage/cate_id/{$cate['cate_id']}">
-                        {$cate['cate_name']}
-                    </a>
-                </li>
+                    {if $Request.session.admin_info && $cate['cate_id']==40}
+                    <li class="menu-item">
+                        <a href="{$Think.config.api}index/article/listPage/cate_id/{$cate['cate_id']}">
+                            {$cate['cate_name']}
+                        </a>
+                    </li>
+                    {/if}
+                    {if $cate['cate_id']!=40}
+                    <li class="menu-item">
+                        <a href="{$Think.config.api}index/article/listPage/cate_id/{$cate['cate_id']}">
+                            {$cate['cate_name']}
+                        </a>
+                    </li>
+                    {/if}
                 {/foreach}
                 {foreach $sing_list as $sing}
                 <li class="menu-item">
