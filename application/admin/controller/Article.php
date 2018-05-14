@@ -64,6 +64,7 @@ class Article extends \app\admin\controller\Base
         // 获取所有参数
         $param                = $request->param();
         $param['art_addtime'] = strtotime($param['art_addtime']);
+        $param = array_filter($param);
         // 实例化模型->获取所有栏目
         $art_info = \app\common\model\Article::where('art_id', $param['art_id'])->update($param);
         if ($art_info) {

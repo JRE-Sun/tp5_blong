@@ -1008,7 +1008,7 @@ h6 {
 
 @media only screen and (max-width: 750px) {
     .post .post-footer .post-nav .nav-default {
-        display: none;
+        /*display: none;*/
     }
 
     .post .post-footer .post-nav .nav-mobile {
