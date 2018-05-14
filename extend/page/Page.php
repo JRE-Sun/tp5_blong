@@ -21,9 +21,15 @@ class Page
         $this->curr_page       = $curr_page;
         $this->art_total       = $art_total;
         $this->every_page_nums = $every_page_nums;
-        $this->url             = substr($url, 0, strpos($url, "page_index") + 11);
-        $this->page_total      = ceil($art_total / $every_page_nums);
-        $this->most_page       = 4;
+        // 存在
+        if (strpos($url, 'page_index')) {
+            $this->url = substr($url, 0, strpos($url, "page_index") + 11);
+        } else {
+            // 不存在
+            $this->url = $url . '/page_index/';
+        }
+        $this->page_total = ceil($art_total / $every_page_nums);
+        $this->most_page  = 4;
     }
 
     /**
