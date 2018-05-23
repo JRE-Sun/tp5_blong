@@ -30,7 +30,7 @@ class Article extends \app\admin\controller\Base
     public function add() {
         $request = Request::instance();
         // 获取所有参数
-        $param                = $request->param();
+        $param                = $request->filter_param();
         $param['art_addtime'] = strtotime($param['art_addtime']);
         // 数据入库
         $article = \app\common\model\Article::create($param);
@@ -48,7 +48,7 @@ class Article extends \app\admin\controller\Base
         $this->setAsideName();
         $request = Request::instance();
         // 获取所有参数
-        $param    = $request->param();
+        $param    = $request->filter_param();
         $art_info = \app\common\model\Article::get($param['art_id']);
         $this->assign('art_info', $art_info);
         $cate_list = \app\common\model\Category::all();
@@ -62,9 +62,8 @@ class Article extends \app\admin\controller\Base
     public function updateArt() {
         $request = Request::instance();
         // 获取所有参数
-        $param                = $request->param();
+        $param                = $request->filter_param();
         $param['art_addtime'] = strtotime($param['art_addtime']);
-        $param = array_filter($param);
         // 实例化模型->获取所有栏目
         $art_info = \app\common\model\Article::where('art_id', $param['art_id'])->update($param);
         if ($art_info) {
@@ -82,7 +81,7 @@ class Article extends \app\admin\controller\Base
         $this->setAsideName();
         $request = Request::instance();
         // 获取所有参数
-        $param    = $request->param();
+        $param    = $request->filter_param();
         $art_list = $this->initPage(20, $param['cate_id']);
         $this->assign('art_list', $art_list);
         return $this->fetch('list');
@@ -92,7 +91,7 @@ class Article extends \app\admin\controller\Base
         $this->setAsideName();
         $request = Request::instance();
         // 获取所有参数
-        $srarch_value = $request->param()['srarch_value'];
+        $srarch_value = $request->filter_param()['srarch_value'];
         $art_list     = $this->initPage(20, '', "art_title like '%{$srarch_value}%' or art_content like '%{$srarch_value}%'");
         $this->assign('art_list', $art_list);
         return $this->fetch('list');
@@ -106,7 +105,7 @@ class Article extends \app\admin\controller\Base
     public function delete() {
         $request = Request::instance();
         // 获取所有参数
-        $param          = $request->param();
+        $param          = $request->filter_param();
         $delete_resault = [];
         // 删除是通过ajax
         if (!isset($param['art_id'])) {
@@ -154,7 +153,7 @@ class Article extends \app\admin\controller\Base
     public function release() {
         $request = Request::instance();
         // 获取所有参数
-        $param = $request->param();
+        $param = $request->filter_param();
         // 实例化模型->删除栏目
         $article                 = \app\common\model\Article::get($param['art_id']);
         $article->art_visibility = $param['visibility'];
@@ -183,7 +182,7 @@ class Article extends \app\admin\controller\Base
     public function recovery() {
         $request = Request::instance();
         // 获取所有参数
-        $param            = $request->param();
+        $param            = $request->filter_param();
         $recovery_resault = [];
         foreach ($param['checkedIndex'] as $value) {
             array_push($recovery_resault, $this->recoveryArticle($value));

@@ -26,7 +26,7 @@ class Admin extends Base
     public function login(Request $request) {
         // 实例化IndexModel
         $admin = new \app\admin\model\Admin();
-        if (!$admin->login($request->param())) {
+        if (!$admin->login($request->filter_param())) {
             $this->error('登陆失败!');
             return;
         }
@@ -52,7 +52,7 @@ class Admin extends Base
     public function update() {
         $request = Request::instance();
         // 获取所有参数
-        $param = $request->param();
+        $param = $request->filter_param();
         // 判断参数是否有 空
         $has_empty = true;
         foreach ($param as $value) {

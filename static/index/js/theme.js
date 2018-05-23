@@ -1,7 +1,8 @@
 $(document).ready(function () {
-    var editor = editormd.markdownToHTML("editor", {
+    // 文章详情页
+    editormd.markdownToHTML("editor", {
         htmlDecode     : "style,script,iframe",  // you can filter tags decode
-        emoji          : true,
+        emoji          : false,
         taskList       : true,
         tex            : true,  // 默认不解析
         flowChart      : true,  // 默认不解析
@@ -25,7 +26,7 @@ $(document).ready(function () {
     }
 
     new PageGallery({
-        selector: '.post-content img'
+        selector: '.primary img'
     });
 
 });

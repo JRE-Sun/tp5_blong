@@ -34,7 +34,7 @@ class Article extends Base
     public function listPage() {
         $request = Request::instance();
         // 获取所有参数
-        $param     = $request->param();
+        $param     = $request->filter_param();
         $art_model = new \app\common\model\Article;
         $sql       = "select * from bg_article, bg_category where is_del='0' and bg_category.cate_id=bg_article.cate_id and bg_category.cate_id={$param['cate_id']} order by art_addtime desc";
         $art_list  = $art_model->query($sql);

@@ -24,7 +24,7 @@ class Category extends \app\admin\controller\Base
     public function add() {
         $request = Request::instance();
         // 获取所有参数
-        $param = $request->param();
+        $param = $request->filter_param();
         // 检查数据正确性
         if (!$this->getNotEmptyParam($param['cate_name'])) {
             // 如果类别名称为空
@@ -47,7 +47,7 @@ class Category extends \app\admin\controller\Base
         $this->setAsideName();
         $request = Request::instance();
         // 获取所有参数
-        $param         = $request->param();
+        $param         = $request->filter_param();
         $category_info = \app\common\model\Category::get($param['cate_id']);
         $this->assign('cate_info', $category_info);
         $cate_list = \app\common\model\Category::all();
@@ -61,7 +61,7 @@ class Category extends \app\admin\controller\Base
     public function updateCate() {
         $request = Request::instance();
         // 获取所有参数
-        $param = $request->param();
+        $param = $request->filter_param();
         // 实例化模型->获取所有栏目
         $category_info = \app\common\model\Category::where('cate_id', $param['cate_id'])->update($param);
         if ($category_info) {
@@ -75,7 +75,7 @@ class Category extends \app\admin\controller\Base
     public function delete() {
         $request = Request::instance();
         // 获取所有参数
-        $param = $request->param();
+        $param = $request->filter_param();
         // 实例化模型->删除栏目
         $category      = \app\common\model\Category::get($param['cate_id']);
         $category_info = $category->delete();

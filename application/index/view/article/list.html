@@ -13,12 +13,25 @@ $curr_year = date('Y',time()) +1    ;
                 {if $art_year!=$curr_year}
                 {php} $curr_year = $art_year; {/php}
                 <div class="collection-title">
-                    {if $key==0}
+                    {if $key==0 && $art['cate_id']!=45}
                     <h2>{$art['cate_name']}</h2>
                     {/if}
                     <h2 class="archive-year">{$art_year}</h2>
                 </div>
                 {/if}
+                {if $art['cate_id']==45}
+                <div class="say">
+                    <img src="http://oj3eoe0eo.bkt.clouddn.com/16062e9769049b1f22558da50a08c62f.jpg" class="user_photo">
+                    <div class="main">
+                        <em></em>
+                        <div class="header"><b>JreSun</b>发布于：<time>{$art['art_addtime']|date='m月d h:i:s',###}</time></div>
+                        <div class="content">
+                            <p>{$art['art_content']}</p>
+                        </div>
+                    </div>
+                </div>
+                {/if}
+                {if $art['cate_id']!=45}
                 <div class="archive-post">
                     <span class="archive-post-time">{$art['art_addtime']|date='m月d',###}</span>
                     <span class="archive-post-title">
@@ -26,6 +39,7 @@ $curr_year = date('Y',time()) +1    ;
                            class="archive-post-link">{$art['art_title']}</a>
                     </span>
                 </div>
+                {/if}
                 {/foreach}
                 {if !count($art_list)}
                 <div class="collection-title">

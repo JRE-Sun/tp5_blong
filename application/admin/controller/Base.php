@@ -76,7 +76,7 @@ class Base extends Controller
         }
         $request = Request::instance();
         // 获取当前页数,,默认1
-        $page_index = (count($request->param()) == 0 || !in_array('page_index', array_keys($request->param()))) ? 1 : $request->param()['page_index'];
+        $page_index = (count($request->filter_param()) == 0 || !in_array('page_index', array_keys($request->filter_param()))) ? 1 : $request->filter_param()['page_index'];
         $art_model  = new \app\common\model\Article;
         $sql        = "select count(*) from bg_article where bg_article.is_del='" . $is_del . "' {$count_cate_id} {$like}";
         // 文章总数

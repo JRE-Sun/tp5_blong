@@ -515,6 +515,79 @@ h6 {
     margin: 0 auto;
 }
 
+.say {
+    margin-bottom: 30px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.archive .say:nth-child(2) {
+    margin-top: 40px;
+}
+
+.say .user_photo {
+    float: left;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+}
+
+.say .main {
+    position: relative;
+    margin-left: 12px;
+    border: 1px solid #DEDEDE;
+    float: left;
+    width: 93%;
+}
+
+.say em {
+    position: absolute;
+    top: -35px;
+    left: -6px;
+    border-right: 1px solid #DEDEDE;
+    border-top: 1px solid #DEDEDE;
+    height: 10px;
+    width: 12px;
+    margin: 50px auto 0;
+    transform: rotate(deg);
+    -webkit-transform: rotate(-131deg);
+    border-left: 2px solid transparent;
+    border-bottom: 2px solid transparent;
+    background: #F8F8F8;
+}
+
+.say-img-wrap {
+    overflow: hidden;
+}
+
+.say-img-wrap img {
+    float: left;
+    width: 32.6%;
+    margin: 1px 0 0 1px;
+    max-width: 128px;
+}
+
+.say .main .header {
+    background-color: #F8F8F8;
+    color: #999;
+    padding: 10px 20px;
+    font-size: 12px;
+}
+
+.say .main .header b {
+    margin-right: 5px;
+}
+
+.say .main .content {
+    padding: 15px;
+    overflow: hidden;
+}
+
+.say .main .content p {
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+}
+
 @media only screen and (max-width: 750px) {
     .site-header-inner, .content {
         width: 90%;
@@ -745,6 +818,9 @@ h6 {
     max-width: 375px;
     margin: 0 auto;
     box-shadow: 0 0 13px rgba(0, 0, 0, .5);
+    -ms-transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
 }
 
 .post .post-content > table {
@@ -1158,11 +1234,12 @@ pre {
     width: 90%;
     margin: 30px auto 0;
     padding: 20px 0;
-    border-top: 1px solid #E1E1E1;
+    /*border-top: 1px solid #E1E1E1;*/
     color: #AAA;
     font-size: 14px;
     max-width: 1000px;
     display: block;
+    text-align: center;
     overflow: hidden;
 }
 

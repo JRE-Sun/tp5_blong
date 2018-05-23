@@ -27,7 +27,7 @@ class Single extends \app\admin\controller\Base
     public function add() {
         $request = Request::instance();
         // 获取所有参数
-        $param                 = $request->param();
+        $param                 = $request->filter_param();
         $param['sing_addtime'] = strtotime($param['sing_addtime']);
         // 数据入库
         $article = \app\common\model\Single::create($param);
@@ -45,7 +45,7 @@ class Single extends \app\admin\controller\Base
         $this->setAsideName();
         $request = Request::instance();
         // 获取所有参数
-        $param     = $request->param();
+        $param     = $request->filter_param();
         $sing_info = \app\common\model\Single::get($param['sing_id']);
         $this->assign('sing_info', $sing_info);
         return $this->fetch();
@@ -57,7 +57,7 @@ class Single extends \app\admin\controller\Base
     public function updateArt() {
         $request = Request::instance();
         // 获取所有参数
-        $param                 = $request->param();
+        $param                 = $request->filter_param();
         $param['sing_addtime'] = strtotime($param['sing_addtime']);
         // 实例化模型->获取所有栏目
         $sing_info = \app\common\model\Single::where('sing_id', $param['sing_id'])->update($param);
@@ -78,7 +78,7 @@ class Single extends \app\admin\controller\Base
     public function delete() {
         $request = Request::instance();
         // 获取所有参数
-        $param = $request->param();
+        $param = $request->filter_param();
         // 实例化模型->删除栏目
         $single         = \app\common\model\Single::get($param['sing_id']);
         $single->is_del = 1;
@@ -98,7 +98,7 @@ class Single extends \app\admin\controller\Base
     public function release() {
         $request = Request::instance();
         // 获取所有参数
-        $param = $request->param();
+        $param = $request->filter_param();
         // 实例化模型->删除栏目
         $single                  = \app\common\model\Single::get($param['sing_id']);
         $single->sing_visibility = $param['visibility'];
