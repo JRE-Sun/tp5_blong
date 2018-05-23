@@ -28,7 +28,7 @@
                             <div class="add-article-box-content">
                                 <p><label>状态：</label><span class="article-status-display">{$sing_info['sing_visibility']==1?'已发布':'未发布'}</span></p>
                                 <p><label>公开度：</label><input type="radio" name="sing_visibility" value="1" {if $sing_info['sing_visibility']==1}checked{/if}/>公开 <input type="radio" name="sing_visibility" value="2" {if $sing_info['sing_visibility']==2}checked{/if} />草稿</p>
-                                <p><label>发布于：<input style="border:none;cursor:pointer;" type="text" id="demo_datetime" name="sing_addtime" value="{$sing_info['sing_addtime'] | date='y-m-d H:m:s',###}" /></label></p>
+                                <p><label>发布于：<input style="border:none;cursor:pointer;" type="text" id="demo_datetime" name="sing_addtime" value="{$sing_info['sing_addtime'] | date='y-m-d H:i:s',###}" /></label></p>
                             </div>
                             <div class="add-article-box-footer">
                                 <button class="btn btn-primary" type="submit">更新</button>
